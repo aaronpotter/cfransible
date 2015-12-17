@@ -15,6 +15,7 @@
     - php
     - mysql
     - varnish
+    - elasticsearch
     - memcached
     - composer
     - drush

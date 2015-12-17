@@ -4,3 +4,4 @@
 
 - name: Execute the drush script
   command: bash /tmp/drush.sh
+  ignore_errors: yes

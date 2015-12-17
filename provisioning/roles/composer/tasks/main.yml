@@ -4,3 +4,4 @@
 
 - name: Execute the composer script
   command: bash /tmp/composer.sh
+  ignore_errors: yes
