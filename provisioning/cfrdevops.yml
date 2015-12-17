@@ -11,7 +11,7 @@
 
   roles:
     - repos
-    - { role: httpd, http_port: 8080 }
+    - httpd
     - php
     - mysql
     - varnish
