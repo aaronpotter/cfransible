@@ -1,0 +1,12 @@
+---
+# This playbook contains plays that will be run on the vagrant node.
+
+- name: add webtatic repo
+  command: rpm -Uvh http://mirror.webtatic.com/yum/el6/latest.rpm
+  ignore_errors: yes
+  tags: repos
+
+- name: add elasticsearch repo
+  template: src=elasticsearch.repo dest=/etc/yum.repos.d/elasticsearch.repo
+  tags: repos
+

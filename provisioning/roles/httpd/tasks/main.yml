@@ -1,0 +1,50 @@
+---
+# This playbook contains plays that will be run on the vagrant node.
+
+- name: Install httpd 
+  yum: name=httpd state=present
+  tags: httpd
+
+- name: Start the httpd service
+  service: name=httpd state=started enabled=yes
+  tags: httpd
+
+#----------------------------
+# add vhost config
+#----------------------------
+
+- file: path=/var/www/sites/devops-test.cfr.dev state=directory mode=0755
+- lineinfile: 
+    dest=/etc/httpd/conf/httpd.conf 
+    state=present
+    owner=root
+    group=root
+    mode=0644
+    line="Include conf/devops-test.conf"
+    create=True
+
+- lineinfile: 
+    dest=/var/www/sites/devops-test.cfr.dev/index.html 
+    state=present
+    owner=root
+    group=root
+    mode=0644
+    line="CFR DevOps test"
+    create=yes
+
+- lineinfile:
+    dest=/etc/hosts
+    state=present
+    owner=root
+    group=root
+    mode=0644
+    line="127.0.0.1  vagrant-centos65.vagrantup.com devops-test.cfr.dev"
+    create=no
+
+- name: Configure vhost file
+  template:
+    src=devops-test.conf
+    dest=/etc/httpd/conf/devops-test.conf
+  tags: httpd
+  notify: restart httpd
+

@@ -1,0 +1,23 @@
+---
+# This playbook deploys the whole application stack in this site.  
+
+- name: apply configuration to vagrant vm
+  hosts: cfrdevops
+  gather_facts: yes
+  remote_user: vagrant
+
+  vars_files:
+    - vars/main.yml
+
+  roles:
+    - repos
+    - { role: httpd, http_port: 8080 }
+    - php
+    - mysql
+    - varnish
+    - memcached
+    - composer
+    - drush
+    - cron
+
+...

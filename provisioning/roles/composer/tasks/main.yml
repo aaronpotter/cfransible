@@ -1,0 +1,6 @@
+---
+- name: composer script
+  template: src=composer.sh dest=/tmp/composer.sh mode=700
+
+- name: Execute the composer script
+  command: bash /tmp/composer.sh

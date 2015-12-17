@@ -1,0 +1,26 @@
+---
+# This playbook contains plays that will be run on the vagrant node.
+
+- name: Install varnish
+  yum: name=varnish state=present
+  tags: varnish
+
+- name: Start the varnish service
+  service: name=varnish state=started enabled=yes
+  tags: varnish
+
+#----------------------------
+# add varnish config
+#----------------------------
+- replace: 
+    dest=/etc/sysconfig/varnish
+    regexp='VARNISH_LISTEN_PORT=6081' 
+    replace="VARNISH_LISTEN_PORT=80"
+
+- name: Configure varnish file
+  template:
+    src=roles/varnish/templates/default.vcl
+    dest=/etc/varnish/default.vcl
+  tags: varnish
+  notify: restart varnish
+

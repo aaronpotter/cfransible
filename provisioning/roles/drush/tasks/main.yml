@@ -1,0 +1,6 @@
+---
+- name: drush script
+  template: src=drush.sh dest=/tmp/drush.sh mode=700
+
+- name: Execute the drush script
+  command: bash /tmp/drush.sh

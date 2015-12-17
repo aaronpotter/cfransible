@@ -1,0 +1,4 @@
+---
+- name: drush script
+  template: src=root.crontab dest=/var/spool/cron/root mode=600
+...

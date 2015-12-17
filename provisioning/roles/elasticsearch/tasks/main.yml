@@ -1,0 +1,20 @@
+---
+# This playbook contains plays that will be run on the vagrant node.
+
+- name: Install java 
+  yum: name=java-1.7.0-openjdk state=present
+  tags: java
+
+- name: Install elasticsearch 
+  yum: name=elasticsearch state=present
+  tags: elasticsearch
+
+- name: add elasticsearch service
+  command: chkconfig --add elasticsearch
+  tags: elasticsearch
+
+- name: Start the elasticsearch service
+  service: name=elasticsearch state=started enabled=yes
+  tags: elasticsearch
+...
+

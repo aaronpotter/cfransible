@@ -1,0 +1,30 @@
+---
+# This playbook contains plays that will be run on the vagrant node.
+
+- name: Install php55w 
+  yum: name=php55w state=present
+  tags: php55
+
+- name: Install php55w imagick
+  yum: name=php55w-pecl-imagick state=present
+  tags: php55
+
+- name: Install php55w memcache
+  yum: name=php55w-pecl-memcache state=present
+  tags: php55
+
+
+#----------------------------
+# modify php config
+#----------------------------
+- replace: 
+    dest=/etc/php.ini
+    regexp='^memory_limit\s=\s128M*$' 
+    replace="memory_limit = {{ php_memory }}"
+
+- replace: 
+    dest=/etc/php.ini
+    regexp=';date.timezone\s=*$' 
+    replace="date.timezone  = {{ timezone }}  "
+
+

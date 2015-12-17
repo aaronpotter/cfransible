@@ -1,0 +1,39 @@
+---
+# This playbook contains plays that will be run on the vagrant node.
+
+- name: Install memcached
+  yum: name=memcached state=present
+  tags: memcached
+
+- name: Transfer the memcached script
+  copy: src=roles/memcached/templates/memcached.sh dest=/tmp/memcached.sh mode=0700
+  tags: memcached
+
+- name: Execute the memcached script
+  command: bash /tmp/memcached.sh
+  tags: memcached
+
+- name: memcached
+  command: /sbin/chkconfig memcached on
+  tags: memcached
+
+- name: memcached2
+  command: /sbin/chkconfig memcached2 on
+  tags: memcached
+
+- name: memcached3
+  command: /sbin/chkconfig memcached3 on
+  tags: memcached
+
+- name: Start the memcached service
+  service: name=memcached state=started enabled=yes
+  tags: memcached
+
+- name: Start the memcached2 service
+  service: name=memcached2 state=started enabled=yes
+  tags: memcached
+
+- name: Start the memcached3 service
+  service: name=memcached3 state=started enabled=yes
+  tags: memcached
+

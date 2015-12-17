@@ -1,0 +1,24 @@
+---
+# This playbook contains plays that will be run on the vagrant node.
+
+- name: Install mysql 
+  yum: name=mysql state=present
+  tags: mysql
+
+- name: Install mysql server
+  yum: name=mysql-server state=present
+  tags: mysql
+
+- name: Start the mysqld service
+  service: name=mysqld state=started enabled=yes
+  tags: mysql
+
+#----------------------------
+# add mysql config
+#----------------------------
+
+- name: Transfer the mysql script
+  template: src=mysql.sh dest=/tmp/mysql.sh mode=0700
+
+- name: Execute the mysql script
+  command: bash /tmp/mysql.sh
